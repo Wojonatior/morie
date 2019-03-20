@@ -5,8 +5,8 @@ var context = canvas.getContext('2d');
 const dpr = window.devicePixelRatio;
 const STEP = 40;
 
-canvas.width = window.innerWidth * dpr;
-canvas.height = window.innerHeight * dpr;
+canvas.width = window.innerWidth * 2 * dpr;
+canvas.height = window.innerHeight  * 2 * dpr;
 context.scale(dpr, dpr);
 
 context.lineCap = 'square';
@@ -81,6 +81,7 @@ for(var i=0; i<5; i++){
   const y = Math.random()*500
   const angle = Math.random()*360
   drawLineSetFromCenterpoint({x, y, angle});
+  context.scale(.5, .5);
 }
 // pick a number of line sets
 // rotate them at different speeds
