@@ -5,12 +5,13 @@ var context = canvas.getContext('2d');
 const dpr = window.devicePixelRatio;
 const STEP = 40;
 
-canvas.width = window.innerWidth * 2 * dpr;
-canvas.height = window.innerHeight  * 2 * dpr;
+canvas.width = window.innerWidth * dpr;
+canvas.height = window.innerHeight * dpr;
 context.scale(dpr, dpr);
 
 context.lineCap = 'square';
 context.lineWidth = 2;
+//const MAX_DISTANCE = Math.sqrt((2 * window.innerWidth * window.innerWidth) + (2 * window.innerHeight * window.innerHeight));
 const MAX_DISTANCE = Math.sqrt((window.innerWidth * window.innerWidth) + (window.innerHeight * window.innerHeight));
 
 // Angle is measured from the x axis clockwise
@@ -77,12 +78,21 @@ const drawLineSetFromCenterpoint = (startLine) => {
 }
 
 for(var i=0; i<5; i++){
-  const x = Math.random()*500
-  const y = Math.random()*500
-  const angle = Math.random()*360
+  var x = Math.random()*500;
+  var y = Math.random()*500;
+  var angle = Math.random()*360;
   drawLineSetFromCenterpoint({x, y, angle});
-  context.scale(.5, .5);
+  //context.scale(.5, .5);
 }
+  context.save();
+  context.globalCompositeOperation = 'source-atop';
+  context.rect(0, 0, window.innerWidth, window.innerHeight);
+  var gradient = context.createLinearGradient(0, 0, window.innerWidth / 2, 0);
+  gradient.addColorStop(0, "magenta");
+  gradient.addColorStop(1, "blue");
+  context.fillStyle = gradient;
+  context.fill();
+  context.restore();
 // pick a number of line sets
 // rotate them at different speeds
 // center them at different points:w
